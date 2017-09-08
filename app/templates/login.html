@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="static/css/index.css">
+</head>
+<body>
+    {% if message %}
+    <p style="color:red">{{ message }}</p>
+    {% endif %}
+    <form action="/login" method="post">
+        <div class="login">
+            <h3>自动化平台登录地址</h3>
+            <div class="login-content">
+                <form>
+                    <p><input name="username" placeholder="请输入用户名" value="{{ username }}"></p>
+                    <p><input name="password" placeholder="请输入密码" type="password" value="{{ password }}"></p>
+                    <p><button type="submit">登录</button></p>
+                </form>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

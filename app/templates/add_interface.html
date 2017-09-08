@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新增接口</title>
+    <link rel="stylesheet" href="static/css/index.css">
+</head>
+<body>
+    <!--{% if message %}-->
+    <!--<p style="color:red">{{ message }}</p>-->
+    <!--{% endif %}-->
+    <form action="/add_interface" method="post">
+        <div class="login">
+            <h3>新增接口页面</h3>
+            <div class="login-content">
+                    <!--启动CSRF-->
+                {{form.hidden_tag()}}
+                <p>
+                    接口名称：{{form.interface_name}}
+                    {%for e_infomation in form.interface_name.errors%}
+                    <span style="color: red">*{{e_infomation}}</span>
+                    {%endfor%}
+                </p>
+                <p>
+                    接口地址：{{form.interface_url}}
+                    {%for e_infomation in form.interface_url.errors%}
+                    <span style="color: red">*{{e_infomation}}</span>
+                    {%endfor%}
+                </p>
+                <p>
+                    接口方法：{{form.interface_methods}}
+                    {%for e_infomation in form.interface_methods.errors%}
+                    <span style="color: red">*{{e_infomation}}</span>
+                    {%endfor%}
+                </p>
+                <p><button style="float: right" type="submit">新增</button></p>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

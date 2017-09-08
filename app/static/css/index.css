@@ -1,0 +1,51 @@
+body{
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+.login{
+    width:600px;
+    margin:200px auto;
+    text-align: center;
+}
+.login-content{
+    width: 80%;
+    margin: 20px auto;
+    border:1px solid #ddd;
+    border-radius:6px;
+}
+.login-content > label{
+    display: block;
+    padding:10px 0;
+
+}
+.nav-left{
+    float: left;
+    width: 20%;
+    background-color: #ddd;
+    margin-right: 1%;
+}
+.nav-ul{
+margin: 0;
+    padding: 0;
+}
+.nav-ul > li{
+    list-style: none;
+    padding:5px 10px;
+    cursor:pointer
+}
+.nav-ul > li:hover,.nav-ul > li.active{
+    background-color: #A26464;
+    color: #fff;
+}
+.nav-ul > li >a{
+    color: inherit;
+    display: block;
+}
+
+.body{
+    float: left;
+    width:78%;
+    min-height: 500px;
+    background-color: #FFEFD5;
+}

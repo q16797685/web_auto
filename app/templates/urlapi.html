@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}
+{{url_api_title}}
+{% endblock %}
+{% block content %}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>接口测试</title>
+    <link rel="stylesheet" href="static/js/style.css">
+    <link rel="stylesheet" href="static/js/bootstrap.css">
+    <script type="text/javascript" src="static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="static/js/angular.js"></script>
+</head>
+<body ng-app="wangchengyang" ng-controller="wcy">
+
+<div class="content">
+    <h1>
+        接口测试
+    </h1>
+    <div style="text-align: right;padding-right: 20px">
+        <button class="btn btn-success" ng-click="run()">运行</button>
+    </div>
+    <div>
+        <table class="table table-hover table-bordered table-responsive">
+            <thead>
+            <tr>
+                <th>接口名</th>
+                <th>方法</th>
+                <th>地址</th>
+                <th>参数</th>
+                <th>返回状态</th>
+                <th>详情</th>
+                <th>选择</th>
+            </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="list in tableData">
+                    <td><input type="text" ng-model="list.name"></td>
+                    <td>
+                        <select ng-model="list.method">
+                            <option value="GET">get</option>
+                            <option value="POST">post</option>
+                            <option value="DELETE">delete</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" ng-model="list.url">
+                    </td>
+                    <td>
+                        <p ng-repeat="x in list.data">
+                            <input type="text" ng-model="x.name">:<input type="text" ng-model="x.value">
+                            <a ng-click="delData($parent.$index,$index)">删除</a>
+                            <a ng-click="addData($parent.$index,$index)">增加</a>
+                        </p>
+                    </td>
+                    <td ng-model="list.response"></td>
+                    <td ng-model="list.resData"></td>
+                    <td>
+                        <input type="checkbox" ng-model="list.isChecked">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="text-align: center;padding: 15px;">
+            <button ng-click="addQuery()">增加一个接口</button>
+        </div>
+    </div>
+</div>
+
+</body>
+
+
+<script type="text/javascript" src="static/js/main.js"></script>
+</html>
+{% endblock %}

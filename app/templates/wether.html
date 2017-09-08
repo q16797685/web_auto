@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}
+{{wether_title}}
+{% endblock %}
+{% block content %}
+<html>
+    <head>
+        <link href="{{ url_for('static', filename='js/style.css', _external=True)}}" rel="stylesheet">
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+
+        <div id="header">
+            <div id="inner-header">
+                <h1>Wether Infomation</h1>
+            </div>
+        </div>
+
+        <div id="main">
+            <h2>Current weather</h2>
+            <form>
+                <input type="text" name="city" placeholder="weather search">
+                <input type="submit" value="Submit">
+            </form>
+
+            <p>日期: <b>{{ moment(current_time).format('LLL') }}</b></p>
+            <p>城市: <b>{{weathers.cityname}}</b></p>
+
+            <form>
+                <input type="text" name="publication" placeholder="search" />
+                <input type="submit" value="Submit" />
+            </form>
+
+            {% for article in articles %}
+                <b><a href="{{article.link}}">{{article.title}}</a></b><br />
+                <i>{{article.published}}</i><br />
+                <p>{{article.summary}}</p>
+                <hr />
+            {% endfor %}
+        </div>
+    </body>
+</html>
+{% endblock %}

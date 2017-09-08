@@ -39,14 +39,14 @@ class AddInterface(Form):
     interface_submit = SubmitField('submit')
 
 
-class MyForm(form.Form):
-    def query_factory(self):
-        select_user_sql = "SELECT * FROM methods_dict;"
-        cur.execute(select_user_sql)
-        data = cur.fetchall()
-        return [data[0]]
-
-    def get_pk(obj):
-        return obj
-
-    name = QuerySelectField(label=u'aaa', validators=[DataRequired()], query_factory=query_factory, get_pk=get_pk)
+# class MyForm(form.Form):
+#     def query_factory(self):
+#         select_user_sql = "SELECT * FROM methods_dict;"
+#         cur.execute(select_user_sql)
+#         data = cur.fetchall()
+#         return [data[0]]
+#
+#     def get_pk(obj):
+#         return obj
+#
+#     name = QuerySelectField(label=u'aaa', validators=[DataRequired()], query_factory=query_factory, get_pk=get_pk)

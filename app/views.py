@@ -17,8 +17,13 @@ from flask_moment import Moment
 from datetime import datetime
 from form import RegisterInterface, AddInterface
 import db
+import requests
 
 
+_url = 'http://172.17.200.94/login'
+_data = {"username": "3958", "password": "3958"}
+# cookie持久化
+_session_cookie = requests.Session()
 WEATHERS = {'cityname': u'上海',
             'cityno': '101280601'}
 
@@ -55,15 +60,13 @@ def wether_information():
     return render_template('wether.html', current_time=datetime.utcnow(), weathers = WEATHERS, wether_title = u'天气预报')
 
 
-# @app.route('/login', methods=['GET'])
-# def login_form():
-#     return render_template('login.html')
+@app.route('/login', methods=['GET'])
+def login_form():
+    return render_template('login.html')
 
 
-@app.route('/login', methods=['POST','GET'])
+@app.route('/login', methods=['POST'])
 def login():
-    if request.method == 'GET':
-        return render_template('login.html')
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -74,7 +77,8 @@ def login():
         for username_data in data:
             if username_data[0] == username:
                 if username_data[1] == password:
-                    return redirect(url_for('main_form'))
+                    # return redirect(url_for('main_form'))
+                    return render_template('main.html')
                 else:
                     return render_template('login.html', message=u'请输入正确密码')
             else:
@@ -103,20 +107,23 @@ def register_form():
             user_name = request.form['register_username']
             user_password = request.form['register_password']
             cur = db.conn.cursor()
-            # insert_user_sql = "insert into user (username,password) values(%s,%s)",(user_name, user_password)  #插入SQL
             cur.execute("insert into user (username,password) values(%s,%s)",(user_name, user_password))
             db.conn.commit()
             return redirect(url_for('login'))
         return render_template('register.html', form=form)
 
 
-@app.route('/interface', methods=['GET'])
+@app.route('/interface', methods=['GET','POST'])
 def interface_form():
-    cur = db.conn.cursor(buffered=True)
-    select_interface_name = "SELECT * FROM autotest_platform.interface;"
-    cur.execute(select_interface_name)
-    data = cur.fetchone()
-    return render_template('interface.html', user=data[0], url=data[1], methods=data[2])
+    if request.method == 'GET':
+        cur = db.conn.cursor(buffered=True)
+        select_interface_name = "SELECT * FROM autotest_platform.interface;"
+        cur.execute(select_interface_name)
+        data = cur.fetchall()
+        return render_template('interface.html', user=data, url=data, methods=data)
+    if request.method == 'POST':
+        datatest = '200'
+        return render_template('interface.html', test=datatest)
 
 
 @app.route('/add_interface', methods=['POST','GET'])
@@ -124,16 +131,26 @@ def add_interface():
     add_interface_form = AddInterface()
     if add_interface_form.validate_on_submit():
         interface_name = request.form['interface_name']
-        print type(interface_name)
         interface_url = request.form['interface_url']
-        print type(interface_url)
         interface_method = request.form['interface_methods']
-        print type(interface_method)
         cur = db.conn.cursor()
         cur.execute("insert into autotest_platform.interface (name,url,methods) values(%s,%s,%s)",(interface_name, interface_url, interface_method))
         db.conn.commit()
         return redirect(url_for('interface_form'))
     return render_template('add_interface.html', form = add_interface_form)
+
+
+@app.route('/api/tasks', methods=['GET','POST'])
+def login_workbench_test():
+    if request.method == 'POST':
+        login_success = _session_cookie.post(url=_url, data=_data)
+        if login_success.status_code == 200:
+            print '接口登录成功'
+            return render_template('interface.html',test=login_success.status_code)
+        else:
+            # 对于http返回非200的code，输出相应的code
+            print "http error info:%s" % login_success.status_code
+    return render_template('interface.html')
 
 
 if __name__ == '__main__':

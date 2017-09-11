@@ -17,7 +17,6 @@
             <li><a href="">测试报告</a></li>
         </ul>
    </div>
-
     <div class="body" style="padding: 20px;">
         <h2>
             接口列表
@@ -37,25 +36,32 @@
                 </tr>
                 </thead>
                 <tbody>
+                {% for each in user %}
                     <tr>
+                        <form method="POST" action="/api/tasks">
                         <td>1</td>
-                        <td>{{user}}</td>
-                        <td>{{url}}</td>
-                        <td>{{methods}}</td>
+                        <td>{{each[0]}}</td>
+                        <td>{{each[1]}}</td>
+                        <td>{{each[2]|upper}}</td>
                         <td>
-                            username:***
+                            username:3959
                             <br>
-                            password:
+                            password:3959
                         </td>
-                        <td>200</td>
+                        <td class="med_code"></td>
                         <td>
-                            <button class="btn btn-success">编辑</button>
+                            <p>
+                                <a href="/api/tasks">
+                                    <button type="submit" value="执行" class="btn btn-default"></button>
+                                </a>
+                            </p>
                             <p><a href="{{ url_for('add_interface') }}">新增接口</a></p>
                         </td>
+                        </form>
                     </tr>
+                {% endfor %}
                 </tbody>
             </table>
-
         </div>
     </div>
 </body>

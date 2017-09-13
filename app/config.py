@@ -18,8 +18,8 @@ import os
 CSRF_ENABLED = True
 SECRET_KEY = "you-will-never-guess"
 
-basedir = os.path.abspath(os.path.dirname(__file__))
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:123456@127.0.0.1/autotest_platform'
-app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
-db = SQLAlchemy(app)
+# basedir = os.path.abspath(os.path.dirname(__file__))
+# app = Flask(__name__)
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:123456@127.0.0.1/autotest_platform'
+# app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
+# db = SQLAlchemy(app)

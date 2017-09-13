@@ -9,8 +9,8 @@
 <body>
    <div class="nav-left">
         <ul class="nav-ul">
-            <li><a href="{{ url_for('main_form') }}">首页</a></li>
-            <li class="active"><a href="#">接口</a></li>
+            <li><a href="{{ url_for('main') }}">首页</a></li>
+            <li class="active"><a href="{{ url_for('interface_form') }}">接口</a></li>
             <li><a href="model.html">模块</a></li>
             <li><a href="">项目</a></li>
             <li><a href="">测试用例</a></li>
@@ -36,28 +36,28 @@
                 </tr>
                 </thead>
                 <tbody>
+                <p><a href="/add_interface">新增接口</a></p>
                 {% for each in user %}
                     <tr>
-                        <form method="POST" action="/api/tasks">
-                        <td>1</td>
+                        <!--<form method="POST" action="/interface">-->
                         <td>{{each[0]}}</td>
                         <td>{{each[1]}}</td>
-                        <td>{{each[2]|upper}}</td>
+                        <td>{{each[2]}}</td>
+                        <td>{{each[3]|upper}}</td>
                         <td>
                             username:3959
                             <br>
                             password:3959
                         </td>
-                        <td class="med_code"></td>
+                        <td class="text"></td>
                         <td>
                             <p>
-                                <a href="/api/tasks">
+                                <a href="{{ url_for('interface_form') }}">
                                     <button type="submit" value="执行" class="btn btn-default"></button>
                                 </a>
                             </p>
-                            <p><a href="{{ url_for('add_interface') }}">新增接口</a></p>
                         </td>
-                        </form>
+                        <!--</form>-->
                     </tr>
                 {% endfor %}
                 </tbody>
